@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import './card.css'
 import Card from '@material-ui/core/Card';
@@ -6,6 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
 
 const useStyles = makeStyles({
     root: {
@@ -36,8 +38,15 @@ export default function CardMain(props) {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">abrir</Button>
-                    <Button size="small">editar</Button>
+                    <Link className='link__card' to={`/detail/${props.post.id}`}><Button size="small" onClick={() => {
+                        axios.get(`https://jsonplaceholder.typicode.com/posts/${props.post.id}`).then(res => {
+                            props.dispatch({
+                                type: 'LOAD_DETAIL',
+                                payload: res.data
+                            })
+                        })
+                    }}>Detalle</Button></Link>
+                    <Link className='link__card' to={`/edit/${props.post.id}`}><Button size="small">editar</Button></Link>
                     <Button size="small" onClick={() => {
                         props.dispatch({
                             type: 'DELETE',

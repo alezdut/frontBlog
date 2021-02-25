@@ -2,3 +2,7 @@
     margin-top: 1vh;
     margin-bottom: 1vh;
 }
+.link__card{
+    text-decoration: none;
+    color: black;
+}
